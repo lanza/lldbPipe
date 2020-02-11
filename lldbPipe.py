@@ -2,6 +2,7 @@ import lldb
 
 import subprocess
 
+
 @lldb.command("pipe")
 def pipe_to_shell(
     debugger: lldb.SBDebugger,
@@ -27,11 +28,9 @@ def pipe_to_shell(
         print(command_retobj.GetError())
         return
 
-
-
     shell_process = subprocess.Popen(right, stdin=subprocess.PIPE, shell=True)
     if out is None or len(out) == 0:
         shell_process.communicate("")
     else:
-        shell_process.communicate(out.encode('utf-8'))
+        shell_process.communicate(out.encode("utf-8"))
     shell_process.wait()
