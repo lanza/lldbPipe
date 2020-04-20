@@ -25,7 +25,11 @@ def pipe_to_shell(
     res = i.HandleCommand(left, command_retobj, False)
     out = command_retobj.GetOutput()
     err = command_retobj.GetError()
-    if res != lldb.eReturnStatusSuccessFinishResult and err != "":
+
+    if (
+        res != lldb.eReturnStatusSuccessFinishResult
+        and res != lldb.eReturnStatusSuccessFinishNoResult
+    ):
         print(command_retobj.GetError())
         return
 
