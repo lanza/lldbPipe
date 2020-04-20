@@ -35,3 +35,17 @@ def pipe_to_shell(
     else:
         shell_process.communicate(out.encode("utf-8"))
     shell_process.wait()
+
+
+@lldb.command("pudbpipe")
+def pudb_pipe_to_shell(
+    debugger: lldb.SBDebugger,
+    command: str,
+    result: lldb.SBCommandReturnObject,
+    internal_dict: dict,
+):
+    import pudb
+
+    pudb.set_trace()
+    return pipe_to_shell(debugger, command, result, internal_dict)
+
